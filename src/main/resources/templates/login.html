@@ -1,10 +1,184 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+  <meta charset="utf-8">
+  <title></title>
+  <script type="text/javascript">
+    window.onload = function (){
+      var btn1 = document.getElementById("logC_1");
+      btn1.onclick = function(){
+        var name = document.getElementById("usernm").value;
+        var passwd = document.getElementById("passwd").value;
+        if(name==""||passwd==""){
+          alert("账号或密码不能为空!");
+          return false;
+        }
+      }
+    }
+
+
+  </script>
+  <style type="text/css">
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    #head{
+      height: 120px;
+      width: 100;
+      background-color: #66cccc;
+      text-align: center;
+      position: relative;
+    }
+
+    #wrap .logGet {
+      height: 408px;
+      width: 368px;
+      position: absolute;
+      background-color: #FFFFFF;
+      top: 20%;
+      right: 15%;
+    }
+    .logC input {
+      width: 100%;
+      height: 45px;
+      background-color: #ee7700;
+      border: none;
+      color: white;
+      font-size: 18px;
+    }
+    .logGet .logD.logDtip .p1 {
+      display: inline-block;
+      font-size: 28px;
+      margin-top: 30px;
+      width: 86%;
+    }
+    #wrap .logGet .logD.logDtip {
+      width: 86%;
+      border-bottom: 1px solid #ee7700;
+      margin-bottom: 60px;
+      margin-top: 0px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    .logGet .lgD input {
+      width: 100%;
+      height: 42px;
+      text-indent: 2.5rem;
+    }
+
+    #wrap .logGet .lgD {
+      width: 86%;
+      position: relative;
+      margin-bottom: 30px;
+      margin-top: 30px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    #wrap .logGet .logC {
+      width: 86%;
+      margin-top: 0px;
+      margin-right: auto;
+      margin-bottom: 0px;
+      margin-left: auto;
+    }
+
+    .title {
+      font-family: "宋体";
+      color: #000000;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 36px;
+      height: 40px;
+      width: 30%;
+    }
+
+    .profile.icon{
+      color:#000;
+      position:absolute;
+      margin-left:3px;
+      margin-top:23px;
+      width:14px;
+      height:6px;
+      border-left:solid 1px currentColor;
+      border-right:solid 1px currentColor;
+      border-top:solid 1px currentColor;
+      border-bottom:solid 1px transparent;
+      border-radius:6px 6px 0 0
+    }
+    .profile.icon:before{
+      content:'';
+      position:absolute;
+      left:2px;top:-10px;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      border:solid 1px currentColor
+    }
+    .unlock.icon{
+      color:#000;
+      position:absolute;
+      margin-left:3px;
+      margin-top:20px;
+      width:13px;
+      height:6px;
+      border:solid 1px currentColor;
+      border-radius:1px
+    }
+    .unlock.icon:before {
+      content: '';
+      position: absolute;
+      left: 3px;
+      top: -8px;
+      width: 5px;
+      height: 3px;
+      border-radius: 4px 4px 0 0;
+      border-top: solid 1px currentColor;
+      border-left: solid 1px currentColor;
+      border-right: solid 1px currentColor;
+    }
+    .unlock.icon:after {
+      content: '';
+      position: absolute;
+      left: 3px;
+      top: -4px;
+      width: 1px;
+      height: 3px;
+      background-color: currentColor;
+    }
+  </style>
 </head>
 <body>
-  <h2>登录界面</h2>
+<div class="head"id="head">
+  <div class="title">
+    食堂管理评分系统
+  </div></div>
+<div id="wrap"class="wrap">
+  <div class="logGet">
+    <div id=""class="logD logDtip">
+      <p class="p1">登陆</p>
+    </div>
+    <form action="www.123.com" th:action="@{/user/login}" th:method="post" method="post">
+      <div class="lgD">
+        <div class="profile icon"></div>
+        <input id="usernm" th:name="username" type="text"placeholder="输入用户名"/>
+      </div>
+      <div class="lgD">
+        <div class="unlock icon"></div>
+        <input id="passwd" th:name="password" type="password"placeholder="请输入密码"/>
+      </div>
+      <div class="lgD">
+        <!--提示错误信息 -->
+        <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+      </div>
+      <div class="logC">
+        <input id="logC_1"type="submit" value="提交">
+      </div>
+    </form>
+  </div>
+
+</div>
 </body>
 </html>

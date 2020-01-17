@@ -123,6 +123,11 @@
     select * from store where id = #{id}
   </select>
 
+  <!--根据店号查询-->
+  <select id="getStoreByStoreId" resultMap="BaseResultMap" parameterType="integer">
+    select * from store where store_id = #{id}
+  </select>
+
 <!-- &lt;!&ndash; 关联其他表查询&ndash;&gt;-->
 <!--  <select id="getStoreWithOthers" resultMap="storeWithOthersMap">-->
 <!--    select * from store s-->

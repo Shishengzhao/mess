@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>后台管理</title>
+		<!-- Bootstrap core CSS -->
+		<link href="../../static/asserts/css/bootstrap.min.css" rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}">
+
+		<!-- Custom styles for this template -->
+		<link href="../../static/asserts/css/dashboard.css" rel="stylesheet" th:href="@{/static/asserts/css/dashboard.css}">
+		<style type="text/css">
+			/* Chart.js */
+			
+			@-webkit-keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			@keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			.chartjs-render-monitor {
+				-webkit-animation: chartjs-render-animation 0.001s;
+				animation: chartjs-render-animation 0.001s;
+			}
+		</style>
+
+
+		<script type="text/javascript">
+			window.onload = function (){
+				var btn1 = document.getElementById("sub");
+				btn1.onclick = function(){
+					var uid = document.getElementById("uid").value;
+					var pwd = document.getElementById("pwd").value;
+					if(uid=="" || pwd==""){
+						alert("账号和密码不能为空");
+						return false;
+					}
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+
+
+<!--		引入抽取的topbar		-->
+		<!--模板名,会使用thymeleaf的前后缀规则进行解析-->
+			<div th:replace="commons/bar::topbar"></div>
+
+		<div class="container-fluid">
+			<div class="row">
+<!--				引入侧边栏		-->
+				<div th:replace="commons/bar::#sidebar(activeUri='stores')"></div>
+
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+					<!--需要区分是店铺修改还是添加-->
+					<form th:action="@{/store}" method="post">
+						<!--
+						1、SpringMvc中配置HiddenHttpMethodFilter;
+						2、页面床架一个post表单
+						3、创建一个input项，name=_method;值就是我们制定的请求方式
+						-->
+						<input type="hidden" name="_method" value="put" th:if="${store!=null}">
+						<input type="hidden" name="id" th:if="${store!=null}" th:value="${store.getId()}">
+
+
+						<div class="form-group" th:if="${not #strings.isEmpty(msg)}" th:text="${msg}" th:bgcolor="red">
+						</div>
+						<div class="form-group" th:if="${store == null}">
+							<label>账号</label>
+							<input id="uid" name="id" th:value="${store!=null}?${store.getId()}" type="text" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>密码</label>
+							<input id="pwd" name="password" th:value="${store!=null}?${store.getPassword()}" type="text" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>店铺号</label>
+							<input name="storeId" th:value="${store!=null}?${store.getStoreId()}" type="text" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>店铺名</label>
+							<input name="name" th:value="${store!=null}?${store.getName()}" type="text" class="form-control">
+						</div>
+<!--						<div class="form-group">-->
+<!--							<label>Email</label>-->
+<!--							<input name="email" th:value="${emp!=null}?${emp.getEmail()}" type="email" class="form-control" placeholder="zhangsan@atguigu.com">-->
+<!--						</div>-->
+						<div class="form-group">
+							<label>楼层</label><br/>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="floor"  value="1" th:checked="${store!=null}?${store.getFloor()==1}">
+								<label class="form-check-label">1</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="floor"  value="2" th:checked="${store!=null}?${store.getFloor()==2}">
+								<label class="form-check-label">2</label>
+							</div>
+								<div class="form-group">
+									<label>电话</label>
+									<input name="phone" th:value="${store!=null}?${store.getPhone()}" type="text" class="form-control">
+								</div>
+						</div>
+
+						<button id="sub" type="submit" class="btn btn-primary" th:text="${store!=null}?'修改':'添加'">添加</button>
+					</form>
+
+				</main>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script type="text/javascript" src="../../static/asserts/js/jquery-3.2.1.slim.min.js"></script>
+		<script type="text/javascript" src="../../static/asserts/js/popper.min.js"></script>
+		<script type="text/javascript" src="../../static/asserts/js/bootstrap.min.js"></script>
+
+		<!-- Icons -->
+		<script type="text/javascript" src="../../static/asserts/js/feather.min.js"></script>
+		<script>
+			feather.replace()
+		</script>
+
+		<!-- Graphs -->
+		<script type="text/javascript" src="../../static/asserts/js/Chart.min.js"></script>
+
+	</body>
+
+</html>

@@ -103,6 +103,11 @@ public class StoreServiceImpl implements IStoreService {
     }
 
     @Override
+    public Store getStoreByStoreId(Integer id) {
+        return storeMapper.getStoreByStoreId(id);
+    }
+
+    @Override
     @Transactional
     public List<Store> getStores() {
         return storeMapper.selectByExample(null);

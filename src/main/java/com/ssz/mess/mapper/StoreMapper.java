@@ -6,6 +6,7 @@ import java.util.List;
 import com.ssz.mess.pojo.vo.StoreVo;
 import org.apache.ibatis.annotations.Param;
 import com.ssz.mess.pojo.StoreExample;
+import org.apache.ibatis.annotations.Select;
 
 public interface StoreMapper {
 
@@ -15,6 +16,10 @@ public interface StoreMapper {
      * @return
      */
     Store getStoreById(Integer id);
+
+
+//    @Select("select * from store where store_id = #{id}")
+    Store getStoreByStoreId(Integer id);
 
 //    /**
 //     * 关联其他表查询

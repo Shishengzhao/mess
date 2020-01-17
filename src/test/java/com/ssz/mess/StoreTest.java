@@ -5,6 +5,7 @@ import com.ssz.mess.pojo.Store;
 import com.ssz.mess.pojo.vo.StoreVo;
 import com.ssz.mess.service.IStoreService;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -61,8 +62,25 @@ public class StoreTest {
         Store store = new Store();
         store.setId(10086);
         store.setPassword("123456");
+        store.setStoreId(1);
         store.setRole(1);
+        store.setName("哈哈哈");
+        store.setFloor(1);
+        store.setPhone(1231322123);
+        store.setRole(2);
+        store.setGradeId(10);
 
-        storeService.saveStore(store);
+        Store s = new Store();
+        s.setName("你好啊啊啊啊");
+        BeanUtils.copyProperties(s,store);
+        System.out.println(store);
+
+    }
+    @Test
+    void findStore(){
+        Store s = storeService.getStoreByStoreId(1);
+        Store store = storeMapper.getStoreByStoreId(1);
+        System.out.println(s);
+        System.out.println(store);
     }
 }

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>后台管理</title>
+  <!-- Bootstrap core CSS -->
+  <link href="../../static/asserts/css/bootstrap.min.css" rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}">
+
+  <!-- Custom styles for this template -->
+  <link href="../../static/asserts/css/dashboard.css" rel="stylesheet" th:href="@{/static/asserts/css/dashboard.css}">
+  <style type="text/css">
+    /* Chart.js */
+
+    @-webkit-keyframes chartjs-render-animation {
+      from {
+        opacity: 0.99
+      }
+      to {
+        opacity: 1
+      }
+    }
+
+    @keyframes chartjs-render-animation {
+      from {
+        opacity: 0.99
+      }
+      to {
+        opacity: 1
+      }
+    }
+
+    .chartjs-render-monitor {
+      -webkit-animation: chartjs-render-animation 0.001s;
+      animation: chartjs-render-animation 0.001s;
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+<!--		引入抽取的topbar		-->
+<!--模板名,会使用thymeleaf的前后缀规则进行解析-->
+<div th:replace="commons/bar::topbar"></div>
+
+<div class="container-fluid">
+  <div class="row">
+    <!--				引入侧边栏		-->
+    <div th:replace="commons/bar::#sidebar(activeUri='stores')"></div>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+      <h6>评分:<span class="label label-default"  th:if="${store.getGrade()!=null}" th:text="${store.getGrade().getTotalpoints() / store.getGrade().getTime()}"></span>
+        <span class="label label-default"  th:if="${store.getGrade()==null}">未评</span>
+        分
+      </h6>
+      <br>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>昵称</th>
+            <th>评论</th>
+          </tr>
+          </thead>
+          <tr th:each="comment:${store.getComments()}" th:if="store != null">
+            <td th:text="${comment.getName()}"></td>
+            <td th:text="${comment.getContent()}"></td>
+            <td><a th:href="@{/deleteComment/} + ${comment.getId()}" class="btn btn-sm btn-danger">删除</a></td>
+          </tr>
+        </table>
+      </div>
+    </main>
+
+  </div>
+</div>
+
+</body>
+
+</html>

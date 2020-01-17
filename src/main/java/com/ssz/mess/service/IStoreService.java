@@ -2,6 +2,7 @@ package com.ssz.mess.service;
 
 import com.ssz.mess.pojo.Store;
 import com.ssz.mess.pojo.vo.StoreVo;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -25,6 +26,8 @@ public interface IStoreService {
     boolean saveStore(Store store);
 
     Store getStoreById(Integer id);
+
+    Store getStoreByStoreId(Integer id);
 
     List<Store> getStores();
 
